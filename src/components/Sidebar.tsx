@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className="sidebar-shell h-full flex flex-col"
       style={{
-        width: collapsed ? 78 : 240,
+        width: collapsed ? 78 : 200,
         transition: 'width 150ms cubic-bezier(0.4, 0, 0.2, 1)',
         willChange: 'width',
         contain: 'layout style',

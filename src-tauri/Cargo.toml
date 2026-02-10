@@ -1,8 +1,8 @@
 [package]
 name = "ups_monitor_pro"
-version = "1.0.0"
+version = "1.0.1"
 description = "UPS Monitor - Tauri Migration"
-authors = ["UPS Monitor"]
+authors = ["4Ismael1"]
 license = "MIT"
 repository = ""
 edition = "2021"
@@ -31,3 +31,4 @@ rodio = "0.20.1"
 
 [target.'cfg(target_os = "windows")'.dependencies]
 window-vibrancy = "0.6"
+windows = { version = "0.58", features = ["Win32_Graphics_Dwm", "Win32_Foundation"] }

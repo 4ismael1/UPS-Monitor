@@ -18,7 +18,7 @@ use tauri::{
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
 };
 #[cfg(target_os = "windows")]
-use window_vibrancy::{apply_acrylic, apply_mica};
+use windows::Win32::Graphics::Dwm::{DwmSetWindowAttribute, DWMWA_WINDOW_CORNER_PREFERENCE, DWM_WINDOW_CORNER_PREFERENCE};
 
 const UPS_VID: u16 = 0x0925;
 const UPS_PID: u16 = 0x1234;
@@ -1452,8 +1452,8 @@ fn create_main_window(app: &AppHandle) -> bool {
     #[cfg(target_os = "windows")]
     {
         let _ = window.set_decorations(false);
-        apply_native_material(&window);
         let _ = window.set_shadow(false);
+        apply_rounded_corners(&window);
     }
 
     let _ = window.set_skip_taskbar(true);
@@ -1835,12 +1835,21 @@ fn set_custom_sounds_path(state: State<'_, SharedState>, sound_path: Option<Stri
 }
 
 #[cfg(target_os = "windows")]
-fn apply_native_material(window: &tauri::WebviewWindow) {
-    // Prefer mica for better drag/resize performance on Windows 11.
-    if apply_mica(window, Some(true)).is_ok() {
-        return;
+fn apply_rounded_corners(window: &tauri::WebviewWindow) {
+    use windows::Win32::Foundation::HWND;
+    // Tauri v2 exposes hwnd() directly on Windows
+    if let Ok(hwnd_raw) = window.hwnd() {
+        let hwnd = HWND(hwnd_raw.0 as *mut _);
+        let preference = DWM_WINDOW_CORNER_PREFERENCE(2); // DWMWCP_ROUND
+        unsafe {
+            let _ = DwmSetWindowAttribute(
+                hwnd,
+                DWMWA_WINDOW_CORNER_PREFERENCE,
+                &preference as *const _ as *const _,
+                std::mem::size_of::<DWM_WINDOW_CORNER_PREFERENCE>() as u32,
+            );
+        }
     }
-    let _ = apply_acrylic(window, Some((18, 22, 30, 150)));
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -1865,14 +1874,21 @@ pub fn run() {
             #[cfg(target_os = "windows")]
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.set_decorations(false);
-                apply_native_material(&window);
                 let _ = window.set_shadow(false);
+                apply_rounded_corners(&window);
             }
 
             if start_minimized {
                 if let Some(window) = app.get_webview_window("main") {
                     let _ = window.set_skip_taskbar(true);
                     let _ = window.hide();
+                }
+            } else {
+                // Window starts hidden (visible=false in config).
+                // Set flag so main_window_ready (called from JS) will show it
+                // once the frontend has fully rendered, avoiding white flash.
+                if let Some(st) = app.try_state::<SharedState>() {
+                    st.pending_show_main_window.store(true, Ordering::Relaxed);
                 }
             }
 

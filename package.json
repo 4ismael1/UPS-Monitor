@@ -1,6 +1,6 @@
 {
-  "name": "ups-monitor-pro",
-  "version": "1.0.0",
+  "name": "ups-monitor",
+  "version": "1.0.1",
   "description": "Professional UPS Monitor - Modern Dashboard",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,7 @@
     "tauri",
     "rust"
   ],
-  "author": "UPS Monitor",
+  "author": "4Ismael1",
   "license": "MIT",
   "type": "commonjs",
   "dependencies": {

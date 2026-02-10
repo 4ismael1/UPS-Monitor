@@ -965,7 +965,7 @@ export const SettingsView: React.FC = () => {
                 <div className="flex items-center justify-between py-2 border-b border-white/5">
                   <span className="text-sm text-white/50">Versión</span>
                   <span className="px-2 py-1 rounded-lg bg-emerald-500/15 text-emerald-400 text-xs font-semibold">
-                    v1.0.0
+                    v1.0.1
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-2 border-b border-white/5">
