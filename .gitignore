@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.vite/
+coverage/
+*.log
+
+# Tauri / Rust
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Reference snapshot (do not version heavy artifacts)
+referencias/proyecto-origen/node_modules/
+referencias/proyecto-origen/dist/
+referencias/proyecto-origen/release/
+referencias/proyecto-origen/target/

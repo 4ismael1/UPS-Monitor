@@ -1,0 +1,50 @@
+{
+  "name": "ups-monitor-pro",
+  "version": "1.0.0",
+  "description": "Professional UPS Monitor - Modern Dashboard",
+  "scripts": {
+    "dev": "vite",
+    "start": "tauri dev",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "build": "vite build",
+    "dist": "tauri build",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "keywords": [
+    "ups",
+    "monitor",
+    "tauri",
+    "rust"
+  ],
+  "author": "UPS Monitor",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-dialog": "^2.4.0",
+    "@tauri-apps/plugin-notification": "^2.3.3",
+    "lucide-react": "^0.563.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "recharts": "^3.7.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@tauri-apps/cli": "^2.10.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "autoprefixer": "^10.4.24",
+    "jsdom": "^28.0.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  }
+}
